@@ -1,4 +1,4 @@
-# Importer
+# SMS-Importer
 App for Android that helps to import SMS, that was backuped by PC Companion powered by Sony.
 
 The main problem that this app is solving is: when you have backup with you data made by PC Companion, and then you downgrade you android.
