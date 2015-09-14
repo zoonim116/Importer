@@ -2,6 +2,7 @@ package com.example.zoonim.smsimporter;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -9,27 +10,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private ListView listView;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AssetDatabaseOpenHelper adb = new AssetDatabaseOpenHelper(this);
-        SQLiteDatabase db = adb.openDatabase();
-        Cursor c = db.rawQuery("SELECT address, date, body FROM sms", null);
-        if(c.moveToFirst()) {
-            do {
-                Log.d("Snippet: ", "ОТ: " + c.getString(0) + " СМС: " + c.getString(2));
-            } while (c.moveToNext());
-        }
+
+        addListenerButton(this);
+
 
         /*
         ContentValues values = new ContentValues();
@@ -39,6 +37,30 @@ public class MainActivity extends Activity {
         values.put("type", 1);
         values.put("read", 1);
         getContentResolver().insert(Uri.parse("content://sms"), values);*/
+    }
+
+    public void addListenerButton(final Context context) {
+        button = (Button) findViewById(R.id.button1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AssetDatabaseOpenHelper adb = new AssetDatabaseOpenHelper(context);
+                SQLiteDatabase db = adb.openDatabase();
+                Cursor c = db.rawQuery("SELECT address, date, body FROM sms ", null);
+                if(c.moveToFirst()) {
+                    do {
+                        ContentValues values = new ContentValues();
+                        values.put("address", c.getString(0));
+                        values.put("date", c.getString(1));
+                        values.put("body", c.getString(2));
+                        values.put("type", 1);
+                        values.put("read", 1);
+                        getContentResolver().insert(Uri.parse("content://sms"), values);
+                        // Log.d("Snippet: ", "ОТ: " + c.getString(0) + " СМС: " + c.getString(2));
+                    } while (c.moveToNext());
+                }
+            }
+        });
     }
 
     @Override
