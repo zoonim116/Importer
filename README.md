@@ -8,4 +8,12 @@ PC Companion wouldn't restore backup. As for I had Android 5 and wanted to downg
 But PC Companion didn't do it. As i understand the problem of different structure of sms/mms database. That is why I'm trying to make some app that help to import
 your sms/mms data.
 
+Usage
 
+1) Copy mmssms.db to the phone <br>
+2) Lauch Importer app <br>
+3) Select db by pressing Import button<br>
+4) Press Strart Button <br>
+5) Wait until import will be done. <br>
+
+P.S How extract mmssms.db from PC Companion backup you can see [here] (http://www.johannesdeml.com/blog/extract-data-sony-pc-companion-backup/)
