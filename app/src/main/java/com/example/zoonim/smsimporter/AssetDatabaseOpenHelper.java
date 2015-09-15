@@ -22,7 +22,7 @@ public class AssetDatabaseOpenHelper {
         this.context = context;
     }
 
-    public SQLiteDatabase openDatabase() {
+    public SQLiteDatabase openDatabase(String DB_NAME, String DB_PATH) {
         File dbFile = context.getDatabasePath(DB_NAME);
 
         if (!dbFile.exists()) {
@@ -31,8 +31,8 @@ public class AssetDatabaseOpenHelper {
                 if(checkDB != null){
                     checkDB.close();
                 }*/
-                String dir = Environment.getExternalStorageDirectory().getPath();
-                dbFile = new File(dir+"/"+DB_NAME);
+                //String dir = Environment.getExternalStorageDirectory().getPath();
+                dbFile = new File(DB_PATH);
                 SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
                 db.close();
                 copyDatabase(dbFile);
@@ -42,10 +42,14 @@ public class AssetDatabaseOpenHelper {
         } else {
             context.deleteDatabase(DB_NAME);
             try {
-                SQLiteDatabase checkDB = context.openOrCreateDatabase(DB_NAME, context.MODE_PRIVATE, null);
+                /*SQLiteDatabase checkDB = context.openOrCreateDatabase(DB_NAME, context.MODE_PRIVATE, null);
                 if(checkDB != null){
                     checkDB.close();
-                }
+                }*/
+                String dir = Environment.getExternalStorageDirectory().getPath();
+                dbFile = new File(dir+"/"+DB_NAME);
+                SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
+                db.close();
                 copyDatabase(dbFile);
             } catch (IOException e) {
                 throw new RuntimeException("Error creating source database", e);
