@@ -17,3 +17,5 @@ Usage
 5) Wait until import will be done. <br>
 
 P.S How extract mmssms.db from PC Companion backup you can see [here] (http://www.johannesdeml.com/blog/extract-data-sony-pc-companion-backup/)
+
+P.P.S Download apk you can [here] (https://www.dropbox.com/s/iqpm82vof01ivb7/SMS-Importer.apk?dl=0)  
